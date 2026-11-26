@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Wi-Fi resource overlay for TECNO POVA 6 Pro 5G (LI9 / MT6833 Connsys Gen4m)
+     Verified from stock vendor/overlay/WifiResOverlay.apk (HiOS 15.1.2.170SP05 / OP001PF001AZ).
+-->
+<resources>
+    <integer-array name="config_wifiRssiLevelThresholds">
+        <item>-90</item>
+        <item>-85</item>
+        <item>-75</item>
+        <item>-64</item>
+    </integer-array>
+
+    <bool name="config_wifi5ghzSupport">true</bool>
+    <bool name="config_wifiDppAkmSupported">true</bool>
+    <bool name="config_wifiSaeH2eSupported">true</bool>
+    <bool name="config_wifiSoftapOweSupported">false</bool>
+    <bool name="config_wifi_background_scan_support">true</bool>
+    <bool name="config_wifi_connected_mac_randomization_supported">true</bool>
+    <bool name="config_wifi_fast_bss_transition_enabled">true</bool>
+    <bool name="config_wifi_p2p_mac_randomization_supported">true</bool>
+    <bool name="config_wifi_softap_acs_supported">true</bool>
+    <bool name="config_wifi_softap_ieee80211ac_supported">true</bool>
+    <bool name="config_wifi_softap_sae_supported">true</bool>
+
+    <integer name="config_wifiDelayDisconnectOnImsLostMs">1000</integer>
+
+    <string name="config_wifiSoftap2gChannelList" translatable="false">1-13</string>
+    <string name="config_wifiSoftap5gChannelList" translatable="false">36,38,40,42,44,46,48,149,153,157,161,165</string>
+    <string name="config_wifi_random_mac_oui" translatable="false">00-0C-E7</string>
+    <string name="config_wifi_tcp_buffers" translatable="false">1730560,3461120,6922240,524288,1048576,4525824</string>
+</resources>

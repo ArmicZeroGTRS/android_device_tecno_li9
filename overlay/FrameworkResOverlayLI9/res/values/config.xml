@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Framework resource overlay for TECNO POVA 6 Pro 5G (LI9)
+     Verified from stock HiOS 15.1.2.170SP05 (OP001PF001AZ):
+       - product/overlay/framework-res__prd_li9_h335...rro_product.apk
+       - vendor/overlay/FrameworkResOverlay.apk
+       - vendor/overlay/FrameworkResOverlayExt.apk
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Display cutout (NT37703A 1080x2436 FHD+ 120Hz AMOLED punch-hole) -->
+    <string name="config_mainBuiltInDisplayCutout" translatable="false">M -30,0 L -30,36 L 30,36 L 30,0 Z @dp</string>
+    <bool name="config_fillMainBuiltInDisplayCutout">false</bool>
+
+    <!-- Refresh rate (NT37703A panel supports 60/90/120 Hz; stock FrameworkResOverlayExt uses 61) -->
+    <integer name="config_defaultRefreshRate">60</integer>
+    <integer name="config_defaultPeakRefreshRate">120</integer>
+
+    <!-- Brightness & auto-brightness calibration (exact 18-point backlight/nits & 16-level lux curve) -->
+    <bool name="config_automatic_brightness_available">true</bool>
+    <string name="config_displayLightSensorType" translatable="false">android.sensor.light</string>
+    <integer name="config_autoBrightnessBrighteningLightDebounce">2000</integer>
+    <integer name="config_autoBrightnessDarkeningLightDebounce">3000</integer>
+    <integer name="config_screenBrightnessDoze">5</integer>
+    <item name="config_screenBrightnessSettingMinimumFloat" format="float" type="dimen">0.00196078</item>
+    <item name="config_screenBrightnessSettingMaximumFloat" format="float" type="dimen">1.0</item>
+    <item name="config_screenBrightnessSettingDefaultFloat" format="float" type="dimen">0.2</item>
+
+    <integer-array name="config_ambientBrighteningThresholds">
+        <item>9000</item>
+        <item>4000</item>
+        <item>2000</item>
+        <item>1000</item>
+        <item>800</item>
+        <item>400</item>
+    </integer-array>
+
+    <integer-array name="config_ambientDarkeningThresholds">
+        <item>200</item>
+        <item>200</item>
+        <item>900</item>
+        <item>700</item>
+        <item>500</item>
+        <item>300</item>
+    </integer-array>
+
+    <integer-array name="config_autoBrightnessLevels">
+        <item>6</item>
+        <item>18</item>
+        <item>34</item>
+        <item>82</item>
+        <item>128</item>
+        <item>256</item>
+        <item>384</item>
+        <item>512</item>
+        <item>768</item>
+        <item>900</item>
+        <item>1536</item>
+        <item>2000</item>
+        <item>2560</item>
+        <item>3148</item>
+        <item>4475</item>
+        <item>5000</item>
+    </integer-array>
+
+    <array name="config_autoBrightnessDisplayValuesNits">
+        <item>5</item>
+        <item>34.6545</item>
+        <item>62.5</item>
+        <item>90.6504</item>
+        <item>97.1545</item>
+        <item>100.102</item>
+        <item>140.53</item>
+        <item>150.579</item>
+        <item>161.019</item>
+        <item>175.287</item>
+        <item>181.303</item>
+        <item>192.737</item>
+        <item>243.086</item>
+        <item>291.051</item>
+        <item>351.914</item>
+        <item>500</item>
+        <item>550</item>
+    </array>
+
+    <integer-array name="config_screenBrightnessBacklight">
+        <item>1</item>
+        <item>15</item>
+        <item>30</item>
+        <item>45</item>
+        <item>60</item>
+        <item>75</item>
+        <item>90</item>
+        <item>105</item>
+        <item>120</item>
+        <item>135</item>
+        <item>150</item>
+        <item>165</item>
+        <item>180</item>
+        <item>195</item>
+        <item>210</item>
+        <item>225</item>
+        <item>240</item>
+        <item>255</item>
+    </integer-array>
+
+    <array name="config_screenBrightnessNits">
+        <item>2</item>
+        <item>31.9561</item>
+        <item>64.5156</item>
+        <item>90.3381</item>
+        <item>119.368</item>
+        <item>154.871</item>
+        <item>190.714</item>
+        <item>212.792</item>
+        <item>237.634</item>
+        <item>264.385</item>
+        <item>292.83</item>
+        <item>322.565</item>
+        <item>356.21</item>
+        <item>390.909</item>
+        <item>427.009</item>
+        <item>466.404</item>
+        <item>505.949</item>
+        <item>550</item>
+    </array>
+
+    <!-- Power, Doze, Navigation, Privacy Toggles & Display Features -->
+    <bool name="config_dozeAfterScreenOff">true</bool>
+    <bool name="config_powerDecoupleAutoSuspendModeFromDisplay">true</bool>
+    <bool name="config_powerDecoupleInteractiveModeFromDisplay">true</bool>
+    <bool name="config_suspendWhenScreenOffDueToProximity">true</bool>
+    <bool name="config_showNavigationBar">true</bool>
+    <bool name="config_setColorTransformAccelerated">true</bool>
+    <bool name="config_enableWifiDisplay">true</bool>
+    <bool name="config_hearing_aid_profile_supported">true</bool>
+    <bool name="config_supportsCamToggle">true</bool>
+    <bool name="config_supportsMicToggle">true</bool>
+    <bool name="config_useDevInputEventForAudioJack">true</bool>
+    <bool name="config_enableMultiUserUI">true</bool>
+    <integer name="config_multiuserMaximumUsers">4</integer>
+    <integer name="config_shortPressOnPowerBehavior">1</integer>
+
+    <!-- Telephony & Connectivity (Dual Physical SIM, IMS / VoLTE / WFC) -->
+    <integer name="config_num_physical_slots">2</integer>
+    <bool name="config_hotswapCapable">true</bool>
+    <bool name="config_device_volte_available">true</bool>
+    <bool name="config_device_vt_available">true</bool>
+    <bool name="config_device_wfc_ims_available">true</bool>
+    <string name="config_wifi_tcp_buffers" translatable="false">1730560,3461120,6922240,524288,1048576,4525824</string>
+</resources>

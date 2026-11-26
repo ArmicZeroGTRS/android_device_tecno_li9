@@ -1,0 +1,31 @@
+#
+# Product properties for TECNO POVA 6 Pro 5G (LI9)
+# Derived from product/etc/build.prop of HiOS 15.1.2.170SP05 (OP001PF001AZ)
+#
+
+# Display Refresh Rate (NT37703A 60/90/120 Hz AMOLED)
+ro.surface_flinger.set_idle_timer_ms=600
+debug.sf.default_touch_timer_ms=200
+
+# Optical Under-Display Fingerprint
+ro.optical_fingerprint_support=1
+
+# Audio & Volume Defaults
+ro.config.vc_call_vol_default=11
+ro.config.media_vol_default=13
+ro.config.alarm_vol_default=13
+ro.config.system_vol_default=15
+ro.audio.monitorRotation=1
+
+# NFC (NXP PN560)
+persist.nfc.settings_wallet_support=true
+
+# Telephony & Dual SIM
+ro.telephony.sim.count=2
+
+# Dex2oat Background Threads (6x Cortex-A55 + 2x Cortex-A76)
+dalvik.vm.background-dex2oat-threads=4
+dalvik.vm.ps-min-first-save-ms=8000
+
+# WindowManager Extensions
+persist.wm.extensions.enabled=true

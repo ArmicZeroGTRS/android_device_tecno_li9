@@ -1,0 +1,5 @@
+# NXP PN560 NFC HAL policy (enforcing)
+allow hal_nfc_default nfc_device:chr_file rw_file_perms;
+allow hal_nfc_default nfc_vendor_data_file:dir create_dir_perms;
+allow hal_nfc_default nfc_vendor_data_file:file create_file_perms;
+get_prop(hal_nfc_default, vendor_nfc_prop)

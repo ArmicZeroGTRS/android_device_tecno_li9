@@ -1,0 +1,15 @@
+#
+# System properties for TECNO POVA 6 Pro 5G (LI9)
+# Derived from system/build.prop of HiOS 15.1.2.170SP05 (OP001PF001AZ)
+#
+
+# Bluetooth
+bluetooth.profile.hid.device.enabled=true
+
+# Display color management
+debug.sf.treat_170m_as_sRGB=1
+
+# APEX & Runtime
+ro.apex.updatable=true
+ro.dalvik.vm.enable_uffd_gc=true
+ro.config.isolated_compilation_enabled=true

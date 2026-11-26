@@ -1,0 +1,6 @@
+# SELinux vendor service_contexts for TECNO POVA 6 Pro 5G (LI9)
+# Derived from stock vendor/etc/selinux/vendor_service_contexts (OP001PF001AZ)
+
+arm.mali.platform.ICompression/default                                        u:object_r:mtk_hal_mali_platform_default_service:s0
+vendor.goodix.hardware.biometrics.fingerprint.IGoodixFingerprintDaemon/default u:object_r:goodix_fingerprint_service:s0
+vendor.nxp.nxpnfc_aidl.INxpNfc/default                                        u:object_r:vendor_hal_nxpnfc_service:s0

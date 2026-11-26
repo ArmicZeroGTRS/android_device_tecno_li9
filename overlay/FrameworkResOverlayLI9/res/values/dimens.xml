@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Verified from product/overlay/framework-res__prd_li9_h335...rro_product.apk
+     (HiOS 15.1.2.170SP05 / OP001PF001AZ)
+-->
+<resources>
+    <dimen name="status_bar_height_portrait">36dp</dimen>
+    <dimen name="status_bar_height_landscape">28dp</dimen>
+    <dimen name="navigation_bar_height">40dp</dimen>
+    <dimen name="navigation_bar_height_landscape">40dp</dimen>
+</resources>

@@ -1,0 +1,12 @@
+# SELinux vendor property_contexts for TECNO POVA 6 Pro 5G (LI9)
+# Derived from stock vendor/etc/selinux/vendor_property_contexts (OP001PF001AZ)
+
+vendor.mali.                                u:object_r:vendor_mtk_gpu_prop:s0
+vendor.nfc.min_firmware                     u:object_r:vendor_nfc_prop:s0
+persist.vendor.nxp_nfc_gsma_support         u:object_r:vendor_nfc_prop:s0
+ro.vendor.tran.ir.led.back                  u:object_r:vendor_irtx_prop:s0
+ro.hardware.haptic_core                     u:object_r:vendor_haptic_support_prop:s0
+vendor.tran.fp.center.X.offset              u:object_r:vendor_fingerprint_prop:s0
+vendor.tran.fp.center.Y.offset              u:object_r:vendor_fingerprint_prop:s0
+vendor.fp.goodix.X.offset                   u:object_r:vendor_fingerprint_prop:s0
+vendor.fp.goodix.Y.offset                   u:object_r:vendor_fingerprint_prop:s0

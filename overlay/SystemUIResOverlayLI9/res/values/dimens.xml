@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SystemUI resource overlay for TECNO POVA 6 Pro 5G (LI9)
+     Verified from stock vendor/overlay/SystemUIResOverlay.apk (HiOS 15.1.2.170SP05 / OP001PF001AZ).
+     Note: Goodix optical UDFPS sensor center is reported in vendor properties as:
+       vendor.tran.fp.center.X.offset = 2310 (vertical/Y on 1080x2436),
+       vendor.tran.fp.center.Y.offset = 540  (horizontal center on 1080px width).
+     Verify UDFPS icon radius and exact coordinate mapping on live hardware before enabling UDFPS overlays.
+-->
+<resources>
+    <dimen name="status_bar_padding_start">4dp</dimen>
+</resources>

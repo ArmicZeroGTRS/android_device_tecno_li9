@@ -1,0 +1,3 @@
+# SELinux genfs_contexts for TECNO POVA 6 Pro 5G (LI9)
+genfscon sysfs /devices/platform/11d00000.i2c/i2c-8/8-0034/leds/vibrator_single u:object_r:sysfs_vibrator:s0
+genfscon sysfs /devices/platform/soc/1101a000.i2c/i2c-6/6-0034/leds/vibrator_single u:object_r:sysfs_vibrator:s0

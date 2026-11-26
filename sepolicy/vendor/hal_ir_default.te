@@ -1,0 +1,3 @@
+# PWM IR blaster HAL policy (/dev/lirc0, /dev/irtx)
+allow hal_ir_default irtx_device:chr_file rw_file_perms;
+get_prop(hal_ir_default, vendor_irtx_prop)

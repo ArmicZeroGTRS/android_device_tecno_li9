@@ -1,0 +1,4 @@
+# MTK Sensor HAL 2.0 configuration
+
+on post-fs-data
+    mkdir /data/vendor/sensor 0774 system system

@@ -1,0 +1,4 @@
+# MTK connectivity init configuration
+
+import /vendor/etc/init/hw/init_connectivity.rc
+import /vendor/etc/init/hw/init.connectivity.common.rc

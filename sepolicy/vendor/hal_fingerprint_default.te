@@ -1,0 +1,6 @@
+# Goodix optical under-display fingerprint HAL policy (enforcing)
+allow hal_fingerprint_default fingerprint_device:chr_file rw_file_perms;
+allow hal_fingerprint_default vendor_gf_data_file:dir create_dir_perms;
+allow hal_fingerprint_default vendor_gf_data_file:file create_file_perms;
+allow hal_fingerprint_default tee_device:chr_file rw_file_perms;
+get_prop(hal_fingerprint_default, vendor_fingerprint_prop)

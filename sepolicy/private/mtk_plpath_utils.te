@@ -1,0 +1,7 @@
+# Private system_ext policy for mtk_plpath_utils (A/B preloader mapper in recovery/OTA)
+type mtk_plpath_utils, domain;
+type mtk_plpath_utils_exec, exec_type, system_file_type, file_type;
+
+init_daemon_domain(mtk_plpath_utils)
+allow mtk_plpath_utils block_device:dir r_dir_perms;
+allow mtk_plpath_utils dm_device:chr_file rw_file_perms;

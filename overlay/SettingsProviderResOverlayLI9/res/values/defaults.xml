@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Verified from stock vendor/overlay/SettingsProviderResOverlay.apk
+     (HiOS 15.1.2.170SP05 / OP001PF001AZ).
+-->
+<resources>
+    <string name="def_private_dns_default_mode" translatable="false">opportunistic</string>
+</resources>

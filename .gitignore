@@ -1,0 +1,51 @@
+# Binary firmware dumps and partition images (NEVER commit firmware dumps)
+*.img
+*.bin
+*.mbn
+*.elf
+*.raw
+*.sparse
+*.simg
+*.apk
+*.apex
+*.capex
+*.ko
+*.dtb
+*.dtbo
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.xz
+*.lz4
+
+# Working extraction & build outputs
+work_extracted/
+out/
+vendor_out/
+tmp/
+*.tmp
+*.log
+
+# Secrets, signing keys, and environment files
+*.pem
+*.pk8
+*.jks
+*.keystore
+*.key
+.env
+.env.*
+*token*
+*secret*
+
+# OS & editor artifacts
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+__pycache__/
+*.pyc
+.vscode/
+.idea/

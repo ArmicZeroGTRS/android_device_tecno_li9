@@ -1,0 +1,194 @@
+# MediaTek MT6833 platform init configuration for TECNO POVA 6 Pro 5G (LI9)
+# Cleaned from stock vendor/etc/init/hw/init.mt6833.rc (HiOS 15.1.2.170SP05 / OP001PF001AZ):
+# - Removed legacy /cache mount (no cache partition in GPT scatter)
+# - Removed OEM virtual CD-ROM mount (/vendor/etc/iAmCdRom.iso)
+# - Removed Transsion-specific /tranfs and MemFusion swapfile hooks
+# - Preserved MT6833 cpusets, A/B preloader symlinks, ZRAM LZ4, Mali GPU, modem, and sensor setup
+
+import /vendor/etc/init/hw/init.connectivity.rc
+import /vendor/etc/init/hw/init.mt6833.usb.rc
+import /vendor/etc/init/hw/init.project.rc
+import /vendor/etc/init/hw/init.sensor_2_0.rc
+import /vendor/etc/init/hw/init.cgroup.rc
+
+# init.modem.rc must be imported LAST because vold.post_fs_data_done is set in it
+import /vendor/etc/init/hw/init.modem.rc
+
+on early-init
+    write /proc/bootprof "INIT:early-init"
+    setprop vendor.all.modules.ready 1
+    mount debugfs debugfs /sys/kernel/debug
+    chmod 0755 /sys/kernel/debug
+
+on init
+    write /proc/bootprof "INIT:init"
+    symlink /sdcard /mnt/sdcard
+
+    chown root system /proc/lk_env
+    chmod 0660 /proc/lk_env
+
+    # Increase socket buffer limits for 5G NR / LTE throughput
+    write /proc/sys/net/core/wmem_max 8388608
+    write /proc/sys/net/core/rmem_max 8388608
+
+    # MT6833 cpusets: 6x Cortex-A55 (0-5) + 2x Cortex-A76 (6-7)
+    write /dev/cpuset/foreground/cpus 0-7
+    write /dev/cpuset/foreground/boost/cpus 0-7
+    write /dev/cpuset/background/cpus 0-5
+    write /dev/cpuset/system-background/cpus 0-5
+    write /dev/cpuset/top-app/cpus 0-7
+
+on late-init
+    write /proc/bootprof "INIT:late-init"
+    write /sys/kernel/rcu_expedited 1
+
+on charger
+    chmod 0660 /dev/spm
+    chown system system /dev/spm
+    chmod 0666 /dev/kmsg
+    chmod 0775 /mnt/vendor
+    mkdir /mnt/vendor/nvcfg
+    mount ext4 /dev/block/by-name/nvcfg /mnt/vendor/nvcfg rw wait
+    chown system system /mnt/vendor/nvcfg
+    chmod 0771 /mnt/vendor/nvcfg
+    restorecon_recursive /mnt/vendor/nvcfg
+
+    chown system system /sys/power/autosleep
+    chown system system /sys/power/state
+    chown system system /sys/power/wakeup_count
+    chown radio wakelock /sys/power/wake_lock
+    chown radio wakelock /sys/power/wake_unlock
+    chmod 0660 /sys/power/state
+    chmod 0660 /sys/power/wake_lock
+    chmod 0660 /sys/power/wake_unlock
+    chmod 0660 /sys/power/wakeup_count
+    write /sys/power/pm_freeze_timeout 2000
+
+    start fuelgauged
+    start fuelgauged_nvram
+
+    chown system system /sys/class/leds/lcd-backlight/brightness
+    start vendor.light-default
+    write /proc/bootprof "0"
+
+on early-fs
+    write /proc/bootprof "INIT:early-fs"
+
+on fs
+    write /proc/bootprof "INIT:fs"
+    write /proc/bootprof "INIT:Mount_START"
+    mount_all --early
+    write /proc/bootprof "INIT:Mount_END"
+
+    # ZRAM configuration (LZ4 compression, 55% RAM via fstab.enableswap)
+    write /sys/block/zram0/comp_algorithm lz4
+    write /proc/sys/vm/page-cluster 0
+    write /proc/sys/vm/swappiness 100
+    write /sys/kernel/mm/swap/vma_ra_enabled false
+
+on late-fs
+    write /proc/bootprof "INIT:late-fs"
+    mount_all --late
+
+on post-fs
+    write /proc/bootprof "INIT:post-fs"
+    symlink /sdcard /storage/sdcard0
+
+    # A/B preloader symlinks for UFS / eMMC combo OTA support
+    symlink /dev/block/sda /dev/block/mmcblk0boot0
+    symlink /dev/block/sdb /dev/block/mmcblk0boot1
+    symlink /dev/block/mmcblk0boot0 /dev/block/by-name/preloader_a
+    symlink /dev/block/mmcblk0boot1 /dev/block/by-name/preloader_b
+    symlink /dev/block/by-name/preloader_a /dev/block/by-name/preloader_emmc_a
+    symlink /dev/block/by-name/preloader_b /dev/block/by-name/preloader_emmc_b
+    symlink /dev/block/by-name/preloader_a /dev/block/by-name/preloader_ufs_a
+    symlink /dev/block/by-name/preloader_b /dev/block/by-name/preloader_ufs_b
+    symlink /dev/block/mapper/pl_a /dev/block/by-name/preloader_raw_a
+    symlink /dev/block/mapper/pl_b /dev/block/by-name/preloader_raw_b
+
+    chown system system /proc/bootprof
+    chmod 0664 /proc/bootprof
+    chown system system /mnt/vendor/protect_f
+    chmod 0770 /mnt/vendor/protect_f
+    chown system system /mnt/vendor/protect_s
+    chmod 0770 /mnt/vendor/protect_s
+    chown root log /proc/ccci_sib
+    chown root system /proc/ccci_dump
+
+on post-fs-data
+    write /proc/bootprof "INIT:post-fs-data"
+    wait_for_prop vendor.all.modules.ready 1
+    write /proc/bootprof "modprobe: Load_Module_DONE"
+
+    # Boot-time UFS / dm-verity I/O tuning
+    write /sys/block/sdc/queue/iostats 0
+    write /sys/block/sdc/queue/read_ahead_kb 2048
+    write /sys/block/sdc/queue/nr_requests 256
+    write /sys/block/dm-0/queue/read_ahead_kb 2048
+    write /sys/block/dm-1/queue/read_ahead_kb 2048
+    write /sys/block/dm-2/queue/read_ahead_kb 2048
+    write /sys/block/dm-3/queue/read_ahead_kb 2048
+    write /sys/block/dm-4/queue/read_ahead_kb 2048
+    write /sys/block/dm-5/queue/read_ahead_kb 2048
+
+    # Vendor NVRAM / NVCFG / Persist directories
+    chown system system /mnt/vendor/nvcfg
+    chmod 0771 /mnt/vendor/nvcfg
+    restorecon_recursive /mnt/vendor/nvcfg
+    chown system system /mnt/vendor/nvcfg/fg
+    chown system system /mnt/vendor/nvcfg/fg/old_fg_data
+    chown system system /mnt/vendor/nvcfg/fg/car_tune_value
+
+    chown root system /mnt/vendor/nvdata
+    chmod 0771 /mnt/vendor/nvdata
+    mkdir /mnt/vendor/nvdata/media 0771 media audio
+    restorecon_recursive /mnt/vendor/nvdata
+
+    chown system system /mnt/vendor/persist
+    chmod 0771 /mnt/vendor/persist
+    restorecon_recursive /mnt/vendor/persist
+
+    # Mali-G57 GPU node
+    chmod 0666 /dev/mali0
+
+    # Display HBM / panel sysfs
+    chmod 0664 /sys/kernel/tran_display/lcm_name
+    chmod 0664 /sys/kernel/tran_display/lcm_hbm_state
+
+    # Audio & camera vendor data directories
+    mkdir /data/vendor/audiohal 0771 system audio
+    mkdir /data/vendor/camera 0770 camera camera
+    mkdir /data/vendor/media 0770 media media
+    mkdir /data/vendor/thermal 0775 root system
+    mkdir /data/vendor/thermal/config 0775 root system
+
+    # Radio / Modem directories
+    mkdir /data/vendor/mdlog 0775 shell log
+    mkdir /data/vendor/ccci_cfg 0770 system radio
+    restorecon /data/vendor/ccci_cfg
+
+on boot
+    chown system system /sys/power/autosleep
+    chown system system /sys/class/leds/lcd-backlight/brightness
+    chown system system /sys/class/leds/lcd-backlight/max_brightness
+    write /sys/class/leds/vibrator/trigger "transient"
+
+    # Awinic AW20216 dynamic RGB LED sysfs
+    chown system system /sys/led/led/tran_led_cmd
+    chmod 0660 /sys/led/led/tran_led_cmd
+    chown system system /sys/led/led/tran_led_check
+    chmod 0660 /sys/led/led/tran_led_check
+
+on property:sys.boot_completed=1
+    # Restore runtime UFS read-ahead & enable ZRAM swap
+    write /sys/block/sdc/queue/iostats 1
+    write /sys/block/sdc/queue/read_ahead_kb 512
+    write /sys/block/sdc/queue/nr_requests 128
+    write /sys/block/dm-0/queue/read_ahead_kb 512
+    write /sys/block/dm-1/queue/read_ahead_kb 512
+    write /sys/block/dm-2/queue/read_ahead_kb 512
+    write /sys/block/dm-3/queue/read_ahead_kb 512
+    write /sys/block/dm-4/queue/read_ahead_kb 512
+    write /sys/block/dm-5/queue/read_ahead_kb 512
+    swapon_all /vendor/etc/fstab.enableswap
+    write /proc/bootprof "0"

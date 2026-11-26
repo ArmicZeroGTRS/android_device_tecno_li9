@@ -1,0 +1,41 @@
+# SELinux vendor file_contexts for TECNO POVA 6 Pro 5G (LI9 / MT6833)
+# Derived from stock vendor/etc/selinux/vendor_file_contexts (HiOS 15.1.2.170SP05 / OP001PF001AZ)
+
+# Goodix optical under-display fingerprint
+/dev/goodix_fp                                          u:object_r:fingerprint_device:s0
+/data/vendor/goodix(/.*)?                               u:object_r:vendor_gf_data_file:s0
+/data/vendor/goodix/gf_data(/.*)?                       u:object_r:vendor_gf_data_file:s0
+
+# NXP PN560 NFC
+/dev/pn553                                              u:object_r:nfc_device:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.nfc-service\.nxp_v u:object_r:hal_nfc_default_exec:s0
+/data/vendor/nfc(/.*)?                                  u:object_r:nfc_vendor_data_file:s0
+
+# PWM IR blaster
+/dev/irtx                                               u:object_r:irtx_device:s0
+/dev/lirc[0-9]+                                         u:object_r:irtx_device:s0
+
+# FourSemi FS3001 LRA vibrator & Awinic AW20216 RGB LED
+/(vendor|system/vendor)/bin/hw/android\.hardware\.vibrator-service\.mediatek u:object_r:hal_vibrator_default_exec:s0
+/vendor/lib64/hw/haptic_fs_core\.default\.so            u:object_r:same_process_hal_file:s0
+/dev/aw20216_i2c                                        u:object_r:sysfs_light_effect_file:s0
+
+# Mali-G57 GPU & Same-Process HALs
+/dev/mali.*                                             u:object_r:gpu_device:s0
+/vendor/lib(64)?/libGLES_mali\.so                       u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/hw/vulkan\.mali\.so                    u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/arm\.mali\.platform-V[0-9]+-ndk\.so    u:object_r:same_process_hal_file:s0
+/vendor/etc/mali_platform\.config                       u:object_r:same_process_hal_file:s0
+
+# Widevine DRM & Trustonic TEE
+/dev/drm_wv                                             u:object_r:widevine_drv_device:s0
+/dev/mobicore                                           u:object_r:tee_device:s0
+/dev/mobicore-user                                      u:object_r:tee_device:s0
+
+# Preloader A/B block devices
+/dev/block/sda                                          u:object_r:preloader_block_device:s0
+/dev/block/sdb                                          u:object_r:preloader_block_device:s0
+/dev/block/mmcblk0boot0                                 u:object_r:preloader_block_device:s0
+/dev/block/mmcblk0boot1                                 u:object_r:preloader_block_device:s0
+/dev/block/by-name/preloader_raw_a                      u:object_r:postinstall_block_device:s0
+/dev/block/by-name/preloader_raw_b                      u:object_r:postinstall_block_device:s0
